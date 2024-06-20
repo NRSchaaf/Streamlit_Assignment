@@ -8,14 +8,13 @@ st.title("Data App Assignment, on June 20th")
 st.write("### Input Data and Examples")
 df = pd.read_csv("Superstore_Sales_utf8.csv", parse_dates=True)
 st.dataframe(df)
-
+# (1) add a drop down for CAtegory)
+st.selectbox('Select Category', ('Furniture', 'Office Supplies', 'Technology'))
 # This bar chart will not have solid bars--but lines--because the detail data is being graphed independently
 st.bar_chart(df, x="Category", y="Sales")
 
 # Now let's do the same graph where we do the aggregation first in Pandas... (this results in a chart with solid bars)
 st.dataframe(df.groupby("Category").sum())
-# (1) add a drop down for CAtegory)
-st.selectbox('Select Category', ('Furniture', 'Office Supplies', 'Technology'))
 # Using as_index=False here preserves the Category as a column.  If we exclude that, Category would become the datafram index and we would need to use x=None to tell bar_chart to use the index
 st.bar_chart(df.groupby("Category", as_index=False).sum(), x="Category", y="Sales", color="#04f")
 
