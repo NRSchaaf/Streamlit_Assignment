@@ -8,8 +8,7 @@ st.title("Data App Assignment, on June 20th")
 st.write("### Input Data and Examples")
 df = pd.read_csv("Superstore_Sales_utf8.csv", parse_dates=True)
 st.dataframe(df)
-# (1) add a drop down for CAtegory)
-st.selectbox('Select Category', ('Furniture', 'Office Supplies', 'Technology'))
+
 # This bar chart will not have solid bars--but lines--because the detail data is being graphed independently
 st.bar_chart(df, x="Category", y="Sales")
 
@@ -24,7 +23,8 @@ df["Order_Date"] = pd.to_datetime(df["Order_Date"])
 df.set_index('Order_Date', inplace=True)
 # Here the Grouper is using our newly set index to group by Month ('M')
 sales_by_month = df.filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
-
+# (1) add a drop down for Category)
+st.selectbox('Select Category', ('Furniture', 'Office Supplies', 'Technology'))
 st.dataframe(sales_by_month)
 
 # Here the grouped months are the index and automatically used for the x axis
