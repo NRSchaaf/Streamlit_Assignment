@@ -22,16 +22,16 @@ st.bar_chart(df.groupby("Category", as_index=False).sum(), x="Category", y="Sale
 df["Order_Date"] = pd.to_datetime(df["Order_Date"])
 df.set_index('Order_Date', inplace=True)
 
-# (1) add a drop down for Category)
-category = st.selectbox('Select Category', df['Category'].unique())
-filtered_df = df[df['Category']==category]
-
 # Here the Grouper is using our newly set index to group by Month ('M')
 sales_by_month = df.filter(items=['Sales']).groupby(pd.Grouper(freq='M')).sum()
 st.dataframe(sales_by_month)
 
 # Here the grouped months are the index and automatically used for the x axis
 st.line_chart(sales_by_month, y="Sales")
+
+# (1) add a drop down for Category)
+st.selectbox('Select Category', df['Category'].unique())
+st.multiselect('Select Sub-category', df['Category'].unique())
 
 st.write("## Your additions")
 st.write("### (1) add a drop down for Category (https://docs.streamlit.io/library/api-reference/widgets/st.selectbox)")
