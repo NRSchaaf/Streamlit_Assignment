@@ -35,7 +35,7 @@ filtered_df = df[df['Category']==category]
 
 # (2) add a multi-select for Sub_Category
 sub_categories = filtered_df['Sub_Category'].unique()
-selected_sub_categories = st.multiselect('Select Sub-category', df['Sub_Category'])
+selected_sub_categories = st.multiselect('Select Sub-category', sub_categories)
 
 # (3) show a line chart of sales for sub-category
 if selected_sub_categories:
