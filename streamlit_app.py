@@ -30,13 +30,19 @@ st.dataframe(sales_by_month)
 st.line_chart(sales_by_month, y="Sales")
 
 # (1) add a drop down for Category)
-st.selectbox('Select Category', df['Category'].unique())
+category = st.selectbox('Select Category', df['Category'].unique())
+filtered_df = df[df['Category']==category]
 
 # (2) add a multi-select for Sub_Category
-st.multiselect('Select Sub-category', df['Sub_Category'])
+sub_categories = filtered_df['Sub_Category'].unique()
+selected_sub_categories = st.multiselect('Select Sub-category', df['Sub_Category'])
 
 # (3) show a line chart of sales for sub-category
-st.line_chart(sales_by_month, y="Sales")
+if selected_sub_categories:
+    filtered_df = filtered_df[filtered_df['Sub_Category'].isin(selected_sub_categories)]
+sales_by_month = filtered_df.groupby(pd.Grouper(freq='M')).sum()[['Sales']]
+st.line_chart(sales_by_month)
+
 
 st.write("## Your additions")
 st.write("### (1) add a drop down for Category (https://docs.streamlit.io/library/api-reference/widgets/st.selectbox)")
