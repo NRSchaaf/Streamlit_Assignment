@@ -48,11 +48,18 @@ st.line_chart(sales_by_month)
 total_sales = filtered_df['Sales'].sum()
 total_quantity = filtered_df['Quantity'].sum()
 total_profit = filtered_df['Profit'].sum()
+
+# (5) overall profit margin metric
+overall_total_profit = df['Profit'].sum()
+overall_total_sales = df['Sales'].sum()
+overall_profit_margin = overall_total_profit / overall_total_sales * 100
+selected_profit_margin = total_profit / total_sales * 100 if total_sales != 0 else 0
+profit_margin_delta = selected_profit_margin - overall_profit_margin
     
 col1, col2, col3 = st.columns(3)
 col1.metric("Total Sales", f"${total_sales:,.2f}")
 col2.metric("Total Quanity", f"{total_quantity}")
-col3.metric("Total Profit", f"${total_profit:,.2f}")
+col3.metric("Total Profit", f"${total_profit:,.2f}", delta=f"{profit_margin_delta:.2f}%")
 
 st.write("## Your additions")
 st.write("### (1) add a drop down for Category (https://docs.streamlit.io/library/api-reference/widgets/st.selectbox)")
