@@ -43,6 +43,11 @@ if selected_sub_categories:
 sales_by_month = filtered_df.groupby(pd.Grouper(freq='M')).sum()[['Sales']]
 st.line_chart(sales_by_month)
 
+# (4) show three metrics
+col1, col2, col3 = st.columns(3)
+col1.metric("Sales", value=sum(df['Sales']))
+col2.metric("Quanity", "9 mph", "-8%")
+col3.metric("Profit", "86%", "4%")
 
 st.write("## Your additions")
 st.write("### (1) add a drop down for Category (https://docs.streamlit.io/library/api-reference/widgets/st.selectbox)")
