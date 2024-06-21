@@ -40,18 +40,19 @@ selected_sub_categories = st.multiselect('Select Sub-category', sub_categories)
 # (3) show a line chart of sales for sub-category
 if selected_sub_categories:
     filtered_df = filtered_df[filtered_df['Sub_Category'].isin(selected_sub_categories)]
-    sales_by_month = filtered_df.groupby(pd.Grouper(freq='M')).sum()[['Sales']]
-    st.line_chart(sales_by_month)
-
-    # (4) show three metrics
-    total_sales = filtered_df['Sales'].sum()
-    total_quantity = filtered_df['Quantity'].sum()
-    total_profit = filtered_df['Profit'].sum()
     
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Total Sales", f"${total_sales:,.2f}")
-    col2.metric("Total Quanity", f"{total_quantity}")
-    col3.metric("Total Profit", f"${total_profit:,.2f}")
+sales_by_month = filtered_df.groupby(pd.Grouper(freq='M')).sum()[['Sales']]
+st.line_chart(sales_by_month)
+
+# (4) show three metrics
+total_sales = filtered_df['Sales'].sum()
+total_quantity = filtered_df['Quantity'].sum()
+total_profit = filtered_df['Profit'].sum()
+    
+col1, col2, col3 = st.columns(3)
+col1.metric("Total Sales", f"${total_sales:,.2f}")
+col2.metric("Total Quanity", f"{total_quantity}")
+col3.metric("Total Profit", f"${total_profit:,.2f}")
 
 st.write("## Your additions")
 st.write("### (1) add a drop down for Category (https://docs.streamlit.io/library/api-reference/widgets/st.selectbox)")
